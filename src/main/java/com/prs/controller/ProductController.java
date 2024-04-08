@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.prs.db.ProductRepo;
 import com.prs.exception.ResponseException;
 import com.prs.model.entity.Product;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @CrossOrigin
 @RestController
@@ -115,4 +117,19 @@ public class ProductController {
 			throw e;
 		}
 	}
+	
+	@GetMapping("/partnumberandvendor/{partnumber}/{vendorid}")
+	public Product getProductByPartNumberAndVendorId(@PathVariable String partnumber, @PathVariable int vendorid) {
+		try {
+			Optional<Product> p = productRepo.findByPartNumberAndVendorId(partnumber, vendorid);
+			if (p.isPresent()) {
+				return p.get();
+			}
+			throw new ResponseException(HttpStatus.NOT_FOUND, "Error", "Product Not Found");
+		} catch (Exception e) {
+			System.err.println(e);
+			throw e;
+		}
+	}
+	
 }

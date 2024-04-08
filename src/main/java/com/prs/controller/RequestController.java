@@ -58,6 +58,8 @@ public class RequestController {
 			// Set default status and submittedDate
 			request.setStatus(StatusUtility.STATUS_NEW);
 			request.setSubmittedDate(LocalDate.now());
+			request.setTotal(0);
+			request.setReasonForRejection(null);
 			// Validate the data
 			String errors = request.validate();
 			if(errors.isEmpty()) {

@@ -30,6 +30,9 @@ This is a Purchase Requisition System that enables the users to place requests f
     - Built to the specifications of [Sean Blessing](https://github.com/sean-blessing)  
 
 ## Version History
+* v0.3
+    * Added getProductByVendorAndPartNumber route
+    * Added more validation
 * 0.2
     * Added more validation
     * Fixed some bugs
