@@ -21,7 +21,7 @@ public class User {
 	private String email;
 	private boolean reviewer;
 	private boolean admin;
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToMany
 	@JoinColumn(name = "UserId")
 	@JsonIgnoreProperties("user")
 	private Collection<Request> requests;

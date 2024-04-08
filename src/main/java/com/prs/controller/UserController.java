@@ -86,7 +86,15 @@ public class UserController {
 					// Make sure that the username has not changed or that it is unique
 					User oldUser = userRepo.findById(user.getId()).get();
 					if(oldUser.getUsername().equalsIgnoreCase(user.getUsername()) || !userRepo.existsByUsername(user.getUsername())) {
-						u = userRepo.save(user);
+						oldUser.setUsername(user.getUsername());
+						oldUser.setFirstname(user.getFirstname());
+						oldUser.setLastname(user.getLastname());
+						oldUser.setPassword(user.getPassword());
+						oldUser.setPhone(user.getPhone());
+						oldUser.setEmail(user.getEmail());
+						oldUser.setReviewer(user.isReviewer());
+						oldUser.setAdmin(user.isAdmin());
+						u = userRepo.save(oldUser);
 					} else {
 						throw new ResponseException(HttpStatus.BAD_REQUEST, "Error", "Username is already taken");
 					}

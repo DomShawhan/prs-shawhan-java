@@ -55,7 +55,7 @@ public class RequestController {
 	@PostMapping("")
 	public Request postRequest(@RequestBody Request request) {
 		try {
-			// Set deafult status and submittedDate
+			// Set default status and submittedDate
 			request.setStatus(StatusUtility.STATUS_NEW);
 			request.setSubmittedDate(LocalDate.now());
 			// Validate the data
@@ -74,17 +74,24 @@ public class RequestController {
 	public Request putRequest(@PathVariable int id, @RequestBody Request request) {
 		try {
 			Request r = null;
+			Optional<Request> requestOptional = requestRepo.findById(id);
 			// Check that the request id matches that path id
 			if(id != request.getId()) {
 				throw new ResponseException(HttpStatus.BAD_REQUEST, "Error", "Request id does not match path id");
 			//Check that the request exists
-			} else if(!requestRepo.existsById(id)) {
+			} else if(!requestOptional.isPresent()) {
 				throw new ResponseException(HttpStatus.NOT_FOUND, "Error", "Request not found");
 			} else {
 				//Validate the data
-				String errors = request.validate();
-				if(errors.isEmpty()) {
-					r = requestRepo.save(request);
+				Request oldRequest = requestOptional.get();
+				oldRequest.setDescription(request.getDescription());
+				oldRequest.setDateNeeded(request.getDateNeeded());
+				oldRequest.setDeliveryMode(request.getDeliveryMode());
+				oldRequest.setJustification(request.getJustification());
+				
+				String errors = oldRequest.validate();
+				if(errors.isEmpty() ) {
+					r = requestRepo.save(oldRequest);
 				} else {
 					throw new ResponseException(HttpStatus.BAD_REQUEST, "Error", errors);
 				}
@@ -100,7 +107,8 @@ public class RequestController {
 	public boolean deleteRequest(@PathVariable int id) {
 		try {
 			boolean success = false;
-			if(requestRepo.existsById(id)) {
+			Optional<Request> request = requestRepo.findById(id);
+			if(request.isPresent() && request.get().getStatus().equalsIgnoreCase(StatusUtility.STATUS_NEW)) {
 				requestRepo.deleteById(id);
 				success = true;
 			} else {

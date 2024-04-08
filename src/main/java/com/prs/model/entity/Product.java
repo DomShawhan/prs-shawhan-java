@@ -21,7 +21,7 @@ public class Product {
 	private double price;
 	private String unit;
 	private String photoPath;
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToMany
 	@JoinColumn(name = "ProductId")
 	@JsonIgnore
 	private Collection<LineItem> lineItems;

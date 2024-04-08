@@ -30,5 +30,8 @@ This is a Purchase Requisition System that enables the users to place requests f
     - Built to the specifications of [Sean Blessing](https://github.com/sean-blessing)  
 
 ## Version History
+* 0.2
+    * Added more validation
+    * Fixed some bugs
 * 0.1
     * Initial Release

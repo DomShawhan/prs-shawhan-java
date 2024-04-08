@@ -83,7 +83,15 @@ public class VendorController {
 					// Check that the vendor code has not changed or that it is unique
 					Vendor oldVendor = vendorRepo.findById(vendor.getId()).get();
 					if(oldVendor.getCode().equalsIgnoreCase(vendor.getCode()) || !vendorRepo.existsByCode(vendor.getCode())) {
-						v = vendorRepo.save(vendor);
+						oldVendor.setCode(vendor.getCode());
+						oldVendor.setName(vendor.getName());
+						oldVendor.setAddress(vendor.getAddress());
+						oldVendor.setCity(vendor.getCity());
+						oldVendor.setState(vendor.getState());
+						oldVendor.setZip(vendor.getZip());
+						oldVendor.setPhone(vendor.getPhone());
+						oldVendor.setEmail(vendor.getEmail());
+						v = vendorRepo.save(oldVendor);
 					} else {
 						throw new ResponseException(HttpStatus.BAD_REQUEST, "Error", "Vendor name is already taken");
 					}

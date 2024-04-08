@@ -19,7 +19,7 @@ public class Vendor {
 	private String zip;
 	private String phone;
 	private String email;
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToMany
 	@JoinColumn(name = "VendorId")
 	@JsonIgnoreProperties("vendor")
 	private Collection<Product> products;

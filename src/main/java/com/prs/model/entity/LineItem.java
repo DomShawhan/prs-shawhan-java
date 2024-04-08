@@ -11,7 +11,7 @@ public class LineItem {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "RequestId")
-	@JsonIgnoreProperties("lineItems")
+	@JsonIgnoreProperties({"lineItems", "user"})
 	private Request request;
 	@ManyToOne
 	@JoinColumn(name = "ProductId")

@@ -26,7 +26,7 @@ public class Request {
 	private double total;
 	private LocalDate submittedDate;
 	private String reasonForRejection;
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToMany
 	@JoinColumn(name = "RequestId")
 	@JsonIgnoreProperties("request")
 	private Collection<LineItem> lineItems;
