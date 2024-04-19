@@ -132,6 +132,9 @@ public class LineItemController {
 									existingLI.setQuantity(existingLI.getQuantity() + lineItem.getQuantity());
 									li = lineItemRepo.save(existingLI);
 									recalculateRequestTotal(li.getRequest().getId());
+								} else if (!lineItemRepo.existsByProductIdAndRequestId(lineItem.getProduct().getId(), lineItem.getRequest().getId())) {
+									li = lineItemRepo.save(lineItem);
+									recalculateRequestTotal(li.getRequest().getId());
 								}
 							}
 						} else {

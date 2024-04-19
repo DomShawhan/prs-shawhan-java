@@ -14,17 +14,13 @@ public class Product {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "VendorID")
-	@JsonIgnoreProperties("products")
+	@JsonIgnoreProperties(value = "products", allowSetters = true)
 	private Vendor vendor;
 	private String partNumber;
 	private String name;
 	private double price;
 	private String unit;
 	private String photoPath;
-	@OneToMany
-	@JoinColumn(name = "ProductId")
-	@JsonIgnore
-	private Collection<LineItem> lineItems;
 	
 	public Product() {
 		super();
@@ -40,7 +36,6 @@ public class Product {
 		this.price = price;
 		this.unit = unit;
 		this.photoPath = photoPath;
-		this.lineItems = lineItems;
 	}
 
 	public int getId() {
@@ -97,14 +92,6 @@ public class Product {
 
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
-	}
-	
-	public Collection<LineItem> getLineItems() {
-		return lineItems;
-	}
-
-	public void setLineItems(Collection<LineItem> lineItems) {
-		this.lineItems = lineItems;
 	}
 
 	public String validate() {

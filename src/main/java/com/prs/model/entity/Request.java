@@ -16,7 +16,7 @@ public class Request {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "UserId")
-	@JsonIgnoreProperties("requests")
+	@JsonIgnoreProperties( value = "requests", allowSetters = true)
 	private User user;
 	private String description;
 	private String justification;

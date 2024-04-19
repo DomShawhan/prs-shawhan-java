@@ -21,7 +21,7 @@ public class Vendor {
 	private String email;
 	@OneToMany
 	@JoinColumn(name = "VendorId")
-	@JsonIgnoreProperties("vendor")
+	@JsonIgnoreProperties(value = "vendor", allowSetters = true)
 	private Collection<Product> products;
 	
 	public Vendor() {

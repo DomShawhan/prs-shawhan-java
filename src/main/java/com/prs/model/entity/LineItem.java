@@ -11,11 +11,11 @@ public class LineItem {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "RequestId")
-	@JsonIgnoreProperties({"lineItems", "user"})
+	@JsonIgnoreProperties(value = {"lineItems", "user"}, allowSetters = true)
 	private Request request;
 	@ManyToOne
 	@JoinColumn(name = "ProductId")
-	@JsonIgnoreProperties({"lineItems", "vendor"})
+	@JsonIgnoreProperties(value = {"lineItems"}, allowSetters = true)
 	private Product product;
 	private int quantity;
 	
@@ -70,7 +70,7 @@ public class LineItem {
 		// Validate product
 		if(product == null) {errors += "Product is required;";} 
 		//Validate quantity
-		if(quantity <= 0) {errors += "Quantity must be greater than 0";}
+		if(quantity <= 0) {errors += "Quantity must be greater than 0;";}
 		
 		return errors;
 	}

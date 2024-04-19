@@ -23,7 +23,7 @@ public class User {
 	private boolean admin;
 	@OneToMany
 	@JoinColumn(name = "UserId")
-	@JsonIgnoreProperties("user")
+	@JsonIgnoreProperties(value = "user", allowSetters = true)
 	private Collection<Request> requests;
 	
 	public User(int id, String username, String password, String firstname, String lastname, String phone, String email,
